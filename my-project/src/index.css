@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+* {
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  box-sizing: border-box;
+}
+input {
+  outline: 0px;
+  width: 100%;
+  position: absoulte;
+}
+a {
+  text-decoration: none;
+}
+li {
+  list-style-type: none;
+}
