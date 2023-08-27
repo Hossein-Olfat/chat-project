@@ -9,8 +9,12 @@ function Login_content() {
   const LoginState = useSelector((state) => {
     return state.login;
   });
-  console.log(LoginState);
   const dispatch = useDispatch();
+  const password_errors = LoginState.password[1].error_text[1].filter(
+    (Each) => {
+      return Each.error === true;
+    }
+  );
   return (
     <div className="w-full h-full flex justify-center items-center">
       <div className=" w-96 bg-white rounded-xl px-7 mx-2 py-8 flex flex-col gap-4">
@@ -100,21 +104,17 @@ function Login_content() {
               ></div>
             </div>
             <div
-              className={`text-red-600 font-semibold transition-[font-size] ${
+              className={`text-red-600 font-semibold transition-all ${
                 LoginState.password[1].show_error === true
                   ? "text-sm"
                   : "text-[0px]"
               }`}
             >
-              {/* {LoginState.password[1].error_text} */}
-              <div>
-                <span>(lowercase letter) </span>
-                <span>(uppercase letter) </span>
-                <span>(Number character) </span>
-
-                {/* <span>(The password must have at least 8 character) </span> */}
-                <span>(The password can have a maximum of 20 characters) </span>
-              </div>
+              {LoginState.password[0] !== ""
+                ? password_errors.map((error) => {
+                    return `(${error.text}) `;
+                  })
+                : LoginState.password[1].error_text[0].text}
             </div>
           </div>
           <button
