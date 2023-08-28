@@ -1,7 +1,7 @@
 import { createSlice, current } from "@reduxjs/toolkit";
 import Validicationform from "../../Validication_form/Validication_form";
-const LoginSlice = createSlice({
-  name: "login",
+const AuthenticationSlice = createSlice({
+  name: "Authentication",
   initialState: {
     email: [
       "",
@@ -57,6 +57,14 @@ const LoginSlice = createSlice({
         show_error: false,
       },
     ],
+    name: [
+      "",
+      {
+        error_status: true,
+        error_text: "please fill name input",
+        show_error: false,
+      },
+    ],
     visibility_password: false,
   },
   reducers: {
@@ -80,6 +88,15 @@ const LoginSlice = createSlice({
         return { payload: value };
       },
     },
+    Name_Filled: {
+      reducer: (state, action) => {
+        state.name[0] = action.payload;
+        Validicationform("name", state);
+      },
+      prepare: (value) => {
+        return { payload: value.trimStart() };
+      },
+    },
     Show_error: (state) => {
       const _state = { ...state };
       console.log(_state);
@@ -98,6 +115,7 @@ const LoginSlice = createSlice({
     },
   },
 });
-const { actions: Login_actions, reducer: Login_reducer } = LoginSlice;
+const { actions: Authentication_actions, reducer: Authentication_reducer } =
+  AuthenticationSlice;
 
-export { Login_actions, Login_reducer };
+export { Authentication_actions, Authentication_reducer };

@@ -1,4 +1,4 @@
 function Register_content() {
-  return <div>Register_content</div>;
+  return <div></div>;
 }
 export { Register_content };

@@ -51,6 +51,31 @@ function Validication_form(type, value) {
         ? (value.password[1].show_error = false)
         : (value.password[1].show_error = true);
     }
+  } else if (type === "name") {
+    if (value.name[0] === "") {
+      value.name[1].error_status = true;
+      value.name[1].error_text = "please fill name input";
+      value.name[1].show_error = true;
+    } else {
+      value.name[1].error_status = false;
+      value.name[1].error_text = "";
+      value.name[1].show_error = false;
+      if (
+        /[^A-Za-z]/.test(value.name[0][value.name[0].length - 2]) &&
+        value.name[0][value.name[0].length - 1] === " "
+      ) {
+        const fixedtext = value.name[0].slice(0, value.name[0].length - 1);
+        value.name[0] = fixedtext;
+      }
+    }
+
+    // if (value.name[0].trimStart() === "") {
+    //   value.name[1].error_status = true;
+    //   value.name[1].error_text = "please fill name input";
+    //   console.log("B");
+    // } else if (/^[A-Za-z]+( [A-Za-z]+)*$/g.test(value.name[0])) {
+    //   console.log("A");
+    // }
   }
 }
 
