@@ -35,7 +35,7 @@ function Validication_form(type, value) {
       });
     } else {
       value.password[1].error_text[0].error = false;
-      for (let i = 1; i < value.password[1].error_text[1].length; i++) {
+      for (let i = 0; i < value.password[1].error_text[1].length; i++) {
         if (value.password[0].match(Password_pattern[i]) !== null) {
           value.password[1].error_text[1][i].error = false;
         } else {
@@ -47,9 +47,13 @@ function Validication_form(type, value) {
           return Each.error === false;
         }
       );
-      errors_status_password === true
-        ? (value.password[1].show_error = false)
-        : (value.password[1].show_error = true);
+      if (errors_status_password === true) {
+        value.password[1].show_error = false;
+        value.password[1].error_status = false;
+      } else {
+        value.password[1].show_error = true;
+        value.password[1].error_status = true;
+      }
     }
   } else if (type === "name") {
     if (value.name[0] === "") {
@@ -60,22 +64,9 @@ function Validication_form(type, value) {
       value.name[1].error_status = false;
       value.name[1].error_text = "";
       value.name[1].show_error = false;
-      if (
-        /[^A-Za-z]/.test(value.name[0][value.name[0].length - 2]) &&
-        value.name[0][value.name[0].length - 1] === " "
-      ) {
-        const fixedtext = value.name[0].slice(0, value.name[0].length - 1);
-        value.name[0] = fixedtext;
-      }
+      const vlauefixed = value.name[0].replace("  ", " ");
+      value.name[0] = vlauefixed;
     }
-
-    // if (value.name[0].trimStart() === "") {
-    //   value.name[1].error_status = true;
-    //   value.name[1].error_text = "please fill name input";
-    //   console.log("B");
-    // } else if (/^[A-Za-z]+( [A-Za-z]+)*$/g.test(value.name[0])) {
-    //   console.log("A");
-    // }
   }
 }
 

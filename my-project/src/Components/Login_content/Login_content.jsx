@@ -1,9 +1,9 @@
 import { AuthenticationBox } from "../AuthenticationBox/AuthenticationBox";
 function Login_content() {
   return (
-    <>
-      <AuthenticationBox type="Register" />
-    </>
+    <div className=" w-full h-full">
+      <AuthenticationBox type="Login" />
+    </div>
   );
 }
 

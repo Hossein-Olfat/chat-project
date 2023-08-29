@@ -101,7 +101,7 @@ const AuthenticationSlice = createSlice({
       const _state = { ...state };
       console.log(_state);
       for (let key in _state) {
-        if (key !== "email" && key !== "password") {
+        if (key !== "email" && key !== "password" && key !== "name") {
           console.log("we dont compute this state");
         } else if (_state[key][1].error_status === true) {
           _state[key][1].show_error = true;
