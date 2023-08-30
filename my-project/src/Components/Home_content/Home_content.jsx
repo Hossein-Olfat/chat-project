@@ -1,5 +1,12 @@
-import { Login_content } from "../Login_content/Login_content";
+import { Sidebar } from "./Sidebar/Sidebar";
+import { Main } from "./Main/Main";
 function Home_content() {
-  return <div>Home_content</div>;
+  return (
+    <div className=" flex">
+      <Sidebar />
+      <Main />
+    </div>
+  );
 }
+
 export { Home_content };

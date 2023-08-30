@@ -18,3 +18,17 @@ a {
 li {
   list-style-type: none;
 }
+/*.user_container::-webkit-scrollbar-track {
+background: #f1f1f1;
+}*/
+.user_container::-webkit-scrollbar {
+  width: 12px;
+}
+.user_container::-webkit-scrollbar-thumb {
+  background-color: rgba(225, 225, 225, 0.4);
+  border-radius: 50px;
+}
+.user_container::-webkit-scrollbar-track {
+  background: #3e3c60;
+  margin-right: 5px;
+}
