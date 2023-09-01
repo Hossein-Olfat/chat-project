@@ -1,7 +1,7 @@
 function Header_sidebar() {
   return (
-    <div className=" bg-[#2f2d51] px-3 py-5">
-      <div className=" flex items-center justify-between">
+    <div className=" bg-[#2f2d51] px-3 py-[20.5px]">
+      <div className=" flex items-center justify-between flex-wrap">
         <div>
           <h1 className=" text-white font-semibold text-xl">Chat app</h1>
         </div>
@@ -9,7 +9,7 @@ function Header_sidebar() {
           <div className=" flex items-center gap-2">
             <div
               style={{
-                backgroundImage: `url(/images/profile_images/albert-dera-ILip77SbmOE-unsplash.jpg)`,
+                backgroundImage: `url(/images/profile_images/albert-dera-ILip77SbmOE--unsplash.jpg)`,
               }}
               className=" w-[35px] h-[35px] bg-cover bg-center rounded-[50%]"
             ></div>

@@ -12,23 +12,26 @@ input {
   width: 100%;
   position: absoulte;
 }
+textarea {
+  outline: 0px;
+  width: 100%;
+  position: absoulte;
+  resize: none;
+}
 a {
   text-decoration: none;
 }
 li {
   list-style-type: none;
 }
-/*.user_container::-webkit-scrollbar-track {
-background: #f1f1f1;
-}*/
+
 .user_container::-webkit-scrollbar {
-  width: 12px;
+  width: 10px;
 }
 .user_container::-webkit-scrollbar-thumb {
-  background-color: rgba(225, 225, 225, 0.4);
-  border-radius: 50px;
+  background-color: #8582ac;
+  border-radius: 999px;
 }
 .user_container::-webkit-scrollbar-track {
-  background: #3e3c60;
-  margin-right: 5px;
+  background-color: #3e3c60;
 }
