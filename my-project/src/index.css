@@ -25,10 +25,10 @@ li {
   list-style-type: none;
 }
 
-.user_container::-webkit-scrollbar {
-  width: 10px;
+::-webkit-scrollbar {
+  width: 8px;
 }
-.user_container::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
   background-color: #8582ac;
   border-radius: 999px;
 }

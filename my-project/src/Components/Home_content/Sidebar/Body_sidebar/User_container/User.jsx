@@ -8,7 +8,7 @@ function User() {
           }}
           className="w-[55px] h-[55px] bg-cover bg-center rounded-[50%]"
         ></div>
-        <div>
+        <div className=" w-[calc(100%-55px)]">
           <h1 className=" text-white font-medium text-lg">Abbas Hosseini</h1>
           <p className="text-[rgba(225,225,225,0.4)]">
             Hellow people How are You ?

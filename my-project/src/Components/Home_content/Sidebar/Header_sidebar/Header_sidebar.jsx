@@ -6,7 +6,7 @@ function Header_sidebar() {
           <h1 className=" text-white font-semibold text-xl">Chat app</h1>
         </div>
         <div className="flex items-center gap-4">
-          <div className=" flex items-center gap-2">
+          <div className=" flex items-center gap-2 flex-wrap">
             <div
               style={{
                 backgroundImage: `url(/images/profile_images/albert-dera-ILip77SbmOE--unsplash.jpg)`,

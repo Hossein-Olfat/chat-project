@@ -6,7 +6,7 @@ function Chat_input() {
 
   return (
     <div className=" bg-white">
-      <div className=" p-6">
+      <div className=" px-6 py-4">
         <form className={`flex items-end`}>
           <div className=" w-full">
             <textarea
