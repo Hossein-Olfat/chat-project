@@ -3,7 +3,7 @@ function Validication_form(type, value) {
     /[a-z]/g,
     /[A-Z]/g,
     /[0-9]/g,
-    /[^A-Za-z0-9]/g,
+    // /[^A-Za-z0-9]/g,
     /^.{8,}$/,
     /^.{1,20}$/,
   ];
@@ -18,10 +18,12 @@ function Validication_form(type, value) {
       ) === null
     ) {
       value.email[1].error_status = true;
+
       value.email[1].error_text = "please enter a valid email";
       value.email[1].show_error = true;
     } else {
       value.email[1].error_status = false;
+
       value.email[1].error_text = "";
       value.email[1].show_error = false;
     }
@@ -30,11 +32,13 @@ function Validication_form(type, value) {
     if (value.password[0] === "") {
       value.password[1].error_status = true;
       value.password[1].error_text[0].error = true;
+
       value.password[1].error_text[1].forEach((Each) => {
         Each.error = false;
       });
     } else {
       value.password[1].error_text[0].error = false;
+
       for (let i = 0; i < value.password[1].error_text[1].length; i++) {
         if (value.password[0].match(Password_pattern[i]) !== null) {
           value.password[1].error_text[1][i].error = false;
@@ -58,10 +62,12 @@ function Validication_form(type, value) {
   } else if (type === "name") {
     if (value.name[0] === "") {
       value.name[1].error_status = true;
+
       value.name[1].error_text = "please fill name input";
       value.name[1].show_error = true;
     } else {
       value.name[1].error_status = false;
+
       value.name[1].error_text = "";
       value.name[1].show_error = false;
       const vlauefixed = value.name[0].replace("  ", " ");

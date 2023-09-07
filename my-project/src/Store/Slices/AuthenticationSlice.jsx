@@ -66,6 +66,9 @@ const AuthenticationSlice = createSlice({
       },
     ],
     visibility_password: false,
+    Loading: false,
+    isSent_register: false,
+    isSent_login: false,
   },
   reducers: {
     Email_Filled: {
@@ -97,25 +100,54 @@ const AuthenticationSlice = createSlice({
         return { payload: value.trimStart() };
       },
     },
-    Show_error: (state) => {
-      const _state = { ...state };
-      console.log(_state);
-      for (let key in _state) {
-        if (key !== "email" && key !== "password" && key !== "name") {
-          console.log("we dont compute this state");
-        } else if (_state[key][1].error_status === true) {
-          _state[key][1].show_error = true;
-        } else {
-          _state[key][1].show_error = false;
+    Show_error: {
+      reducer: (state, action) => {
+        const _state = { ...state };
+        console.log(_state);
+        for (let key in _state) {
+          if (
+            key !== "email" &&
+            key !== "password" &&
+            key !== (action.payload === "Login" ? null : "name")
+          ) {
+            console.log("we dont compute this state");
+          } else if (_state[key][1].error_status === true) {
+            _state[key][1].show_error = true;
+          } else {
+            _state[key][1].show_error = false;
+          }
         }
-      }
+      },
+      prepare: (value) => {
+        return { payload: value };
+      },
     },
     Visible_password: (state) => {
       state.visibility_password = !state.visibility_password;
     },
+
+    Registered: (state) => {
+      state.Loading = false;
+      state.isSent_register = !state.isSent_register;
+      state.name[1].show_error = false;
+    },
+    Loading: (state) => {
+      state.Loading = true;
+    },
+    Loginned: (state) => {
+      state.Loading = false;
+      state.isSent_login = !state.isSent_login;
+    },
   },
 });
-const { actions: Authentication_actions, reducer: Authentication_reducer } =
-  AuthenticationSlice;
+const {
+  actions: Authentication_actions,
+  reducer: Authentication_reducer,
+  getInitialState: Authentication_initialState,
+} = AuthenticationSlice;
 
-export { Authentication_actions, Authentication_reducer };
+export {
+  Authentication_actions,
+  Authentication_reducer,
+  Authentication_initialState,
+};
