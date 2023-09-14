@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import supabase from "../Supabase/Supabase";
 // Login
+
 const User_Login = createAsyncThunk(
   "user/Login",
   async (userinfo, thunkapi) => {
@@ -8,8 +9,9 @@ const User_Login = createAsyncThunk(
       email: userinfo.email[0],
       password: userinfo.password[0],
     });
-    return [data.session.user, error];
-  }
+    return data.session.user;
+  },
+  {}
 );
 const User_Register = createAsyncThunk(
   "user/Regiter",
@@ -23,15 +25,16 @@ const User_Register = createAsyncThunk(
         },
       },
     });
-    return [data.user, error];
+
+    return data.user;
   }
 );
 const User_Logout = createAsyncThunk(
   "user/Logout",
   async (userinfo, thunkapi) => {
     const { data, error } = await supabase.auth.signOut();
-    console.log(data);
-    return [data, error];
+
+    return data;
   }
 );
 export { User_Login, User_Register, User_Logout };

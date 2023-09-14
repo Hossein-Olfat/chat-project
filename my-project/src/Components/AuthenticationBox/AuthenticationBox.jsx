@@ -13,7 +13,7 @@ function AuthenticationBox({ type }) {
   const AuthState = useSelector((state) => {
     return state.Authentication;
   });
-  console.log(UserInfo);
+  console.log(UserInfo.LoginError.error_status);
   const AuthStateValues = Object.values(AuthState);
   const form_status = (type) => {
     return !AuthStateValues.some((value, index) => {
@@ -37,16 +37,23 @@ function AuthenticationBox({ type }) {
       <div className=" w-96 bg-white rounded-xl px-7 mx-2 py-[1.3rem] flex flex-col gap-4">
         <div className={``}>
           <div
-            className={`text-center justify-center bg-green-600 text-white py-1 rounded-md  ${
+            className={`text-center justify-center text-[15px] py-1 bg-green-600 text-white rounded-md  ${
               UserInfo.show_ConfirmLink_message === true && type === "Register"
                 ? "flex"
-                : "hidden"
+                : " hidden"
             }`}
           >
-            {" "}
             we send a confirm link to your email
           </div>
-          <div>''</div>
+          <div
+            className={` text-center justify-center text-[15px] py-1 bg-red-600 text-white rounded-md ${
+              UserInfo.LoginError.error_status === true && type === "Login"
+                ? "flex"
+                : " hidden"
+            }`}
+          >
+            {UserInfo.LoginError.error_text}
+          </div>
         </div>
         <div className=" flex flex-col items-center gap-2">
           <h1 className=" text-4xl text-gray-700 font-semibold">chat app</h1>
@@ -212,7 +219,13 @@ function AuthenticationBox({ type }) {
               onClick={async (event) => {
                 event.preventDefault();
                 if (form_status("Login")) {
-                  dispatch(User_Login(AuthState));
+                  dispatch(User_Login(AuthState)).then((value) => {
+                    if (value.error !== null) {
+                      setTimeout(() => {
+                        dispatch(User_actions.Reset_LoginError());
+                      }, 7000);
+                    }
+                  });
                 } else {
                   dispatch(Authentication_actions.Show_error("Login"));
                 }
@@ -225,7 +238,7 @@ function AuthenticationBox({ type }) {
               Login
               {UserInfo.Loading === true ? (
                 <svg
-                  className=" absolute top-[13px] right-[85px] animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                  className=" absolute top-[11px] right-[90px] animate-spin -ml-1 mr-3 h-5 w-5 text-white"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -256,10 +269,11 @@ function AuthenticationBox({ type }) {
               onClick={async (event) => {
                 event.preventDefault();
                 if (form_status("Register")) {
-                  dispatch(User_Register(AuthState));
-                  setTimeout(() => {
-                    dispatch(User_actions.Reset_ConfirmLink_message());
-                  }, 7000);
+                  dispatch(User_Register(AuthState)).then(() => {
+                    setTimeout(() => {
+                      dispatch(User_actions.Reset_ConfirmLink_message());
+                    }, 7000);
+                  });
 
                   console.log("sended");
                 } else {
@@ -275,7 +289,7 @@ function AuthenticationBox({ type }) {
               Register
               {UserInfo.Loading === true ? (
                 <svg
-                  className=" absolute top-[13px] right-[85px] animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                  className=" absolute top-[11px] right-[90px] animate-spin -ml-1 mr-3 h-5 w-5 text-white"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"

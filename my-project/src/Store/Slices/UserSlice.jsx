@@ -29,7 +29,7 @@ const UserSlice = createSlice({
       state.show_ConfirmLink_message = false;
     },
     Reset_LoginError: (state) => {
-      state.LogoutError.error_status = false;
+      state.LoginError.error_status = false;
       state.LoginError.error_text = "";
     },
     Reset_RegisterError: (state) => {
@@ -49,26 +49,33 @@ const UserSlice = createSlice({
       state.Loading = true;
     }),
       build.addCase(User_Login.fulfilled, (state, action) => {
-        state.userinfo = action.payload[0];
         state.Loading = false;
+        state.userinfo = action.payload;
         state.Login = true;
       }),
       build.addCase(User_Login.rejected, (state, action) => {
         state.Loading = false;
         state.LoginError.error_status = true;
-        state.LoginError.error_text = action.payload[1];
+        state.LoginError.error_text = "There is no user with this information";
       });
     build.addCase(User_Register.pending, (state, action) => {
-      state.show_ConfirmLink_message = true;
+      state.show_ConfirmLink_message = false;
       state.Loading = true;
     }),
       build.addCase(User_Register.fulfilled, (state, action) => {
+        state.show_ConfirmLink_message = true;
         state.Loading = false;
         state.Signup = true;
       }),
-      build.addCase(User_Logout.fulfilled, (state, action) => {
-        state.userinfo = null;
+      build.addCase(User_Register.rejected, (state, action) => {
+        state.Loading = false;
+        state.RegisterError.error_status = true;
+        state.RegisterError.error_text =
+          "A user with this information has already registered";
       });
+    build.addCase(User_Logout.fulfilled, (state, action) => {
+      state.userinfo = null;
+    });
   },
 });
 const {
