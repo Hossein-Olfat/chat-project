@@ -1,40 +1,31 @@
-import { useNavigate, useRoutes } from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 import "./App.css";
 import routes from "./routes";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import supabase from "./Supabase/Supabase";
-import { useSelector } from "react-redux";
-import App_provider from "./App_context";
+import { useSelector, useDispatch } from "react-redux";
 
-// const T = JSON.parse(
-//   localStorage.getItem("sb-acsgpvqkpifsfgrjmqxn-auth-token")
-// );
-// T.expires_at = 3601;
-// localStorage.setItem("sb-acsgpvqkpifsfgrjmqxn-auth-token", JSON.stringify(T));
-// supabase.auth
-//   .getSession()
-//   .then((v) => {
-//     v.data.session.expires_at = 7200;
-//     return v;
-//   })
-//   .then((va) => {
-//     console.log(va);
-//   });
-
+import { User_actions } from "./Store/Slices/Userslice";
 function App() {
   const router = useRoutes(routes);
-  // const _Navigate = useNavigate();
-  const Supabase = JSON.parse(
-    localStorage.getItem("sb-acsgpvqkpifsfgrjmqxn-auth-token")
-  );
-  const AuthState = useSelector((state) => {
-    return state.Authentication;
-  });
+  const dispatch = useDispatch();
+  // const UserInfo = useSelector((state) => {
+  //   return state.User.userinfo;
+  // });
 
-  return (
-    <App_provider.Provider value={Supabase}>
-      <div>{router}</div>
-    </App_provider.Provider>
-  );
+  useEffect(() => {
+    supabase.auth.getSession().then((info) => {
+      info.error === null
+        ? dispatch(
+            User_actions.Inituserdata(
+              info.data.session !== null ? info.data.session.user : null
+            )
+          )
+        : "";
+    });
+    return () => {};
+  }, []);
+
+  return <div>{router}</div>;
 }
 export default App;

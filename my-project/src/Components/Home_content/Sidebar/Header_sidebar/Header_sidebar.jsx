@@ -1,13 +1,17 @@
-import { useContext, useState } from "react";
-import App_provider from "../../../../App_context";
-import supabase from "../../../../Supabase/Supabase";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { useSelector } from "react-redux";
+import { User_Logout } from "../../../../Store/Async_actions";
+import { useDispatch } from "react-redux";
+import { User_actions } from "../../../../Store/Slices/Userslice";
 function Header_sidebar() {
-  const app = useContext(App_provider);
+  const UserInfo = useSelector((state) => {
+    return state.User;
+  });
+  const dispatch = useDispatch();
+  console.log(User_actions);
   const [open_profile, setopen_profile] = useState(false);
-  const _Navigate = useNavigate();
-  console.log(app);
+
   return (
     <div className=" bg-[#2f2d51] px-3 py-[20.5px]">
       <div className=" flex items-center justify-between flex-wrap">
@@ -30,10 +34,12 @@ function Header_sidebar() {
               }`}
             >
               <span className=" text-black font-estedad_light font-medium">
-                {app !== null && app.user.user_metadata.name}
+                {UserInfo !== null ? UserInfo.email : ""}
               </span>
               <span className=" text-black font-estedad_light font-medium">
-                {app !== null && app.user.email}
+                {/* {userinfos.user.user_metadata !== null
+                  ? userinfos.user.user_metadata.name
+                  : ""} */}
               </span>
             </div>
           </div>
@@ -42,9 +48,9 @@ function Header_sidebar() {
           </div>
           <div>
             <button
-              onClick={async () => {
-                const { data, error } = await supabase.auth.signOut();
-                _Navigate("/login");
+              onClick={() => {
+                dispatch(User_actions.Loading_Logout());
+                dispatch(User_Logout());
               }}
               className=" text-white text-xs bg-[#8582ac] p-[6px] cursor-pointer"
             >

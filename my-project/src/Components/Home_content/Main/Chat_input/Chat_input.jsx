@@ -10,6 +10,7 @@ function Chat_input() {
         <form className={`flex items-end`}>
           <div className=" w-full">
             <textarea
+              id="Chat_input"
               ref={textarea_size}
               onInput={() => {
                 textarea_size.current.style.height = "24px";

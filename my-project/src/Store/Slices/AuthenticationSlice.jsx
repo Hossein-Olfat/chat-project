@@ -1,5 +1,6 @@
 import { createSlice, current } from "@reduxjs/toolkit";
 import Validicationform from "../../Validication_form/Validication_form";
+import { User_Login, User_Register } from "../Async_actions";
 const AuthenticationSlice = createSlice({
   name: "Authentication",
   initialState: {
@@ -65,10 +66,8 @@ const AuthenticationSlice = createSlice({
         show_error: false,
       },
     ],
+
     visibility_password: false,
-    Loading: false,
-    isSent_register: false,
-    isSent_login: false,
   },
   reducers: {
     Email_Filled: {
@@ -125,19 +124,17 @@ const AuthenticationSlice = createSlice({
     Visible_password: (state) => {
       state.visibility_password = !state.visibility_password;
     },
-
-    Registered: (state) => {
-      state.Loading = false;
-      state.isSent_register = !state.isSent_register;
-      state.name[1].show_error = false;
-    },
-    Loading: (state) => {
-      state.Loading = true;
-    },
-    Loginned: (state) => {
-      state.Loading = false;
-      state.isSent_login = !state.isSent_login;
-    },
+  },
+  extraReducers: (build) => {
+    build.addCase(User_Login.fulfilled, (state, action) => {
+      state.password[0] = "";
+      state.email[0] = "";
+    }),
+      build.addCase(User_Register.fulfilled, (state, action) => {
+        state.email[0] = "";
+        state.password[0] = "";
+        state.name[0] = "";
+      });
   },
 });
 const {
